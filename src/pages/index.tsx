@@ -36,12 +36,12 @@ const IndexPage: React.FC = () => {
       <section className='flex flex-col w-[90%] sm:w-[85%] overflow-auto'>
         <Main />
       </section>
-      <ReactSpreadsheetImport
+      {/* <ReactSpreadsheetImport
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={onSubmit}
         fields={fields}
-      />
+      /> */}
     </div>
   )
 };
