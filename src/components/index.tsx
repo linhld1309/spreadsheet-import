@@ -1,0 +1,5 @@
+export { Main } from "@/src/components/main"
+export { Sidebar } from "@/src/components/sidebar"
+export { Chart } from "@/src/components/chart"
+export { TableData } from "@/src/components/table"
+export { Panel } from "@/src/components/panel"
