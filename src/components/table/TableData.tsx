@@ -4,8 +4,8 @@ import { ReactSpreadsheetImport } from "@/src/lib"
 export const TableData = () => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => { setIsOpen(false)}
-  const onSubmit = () => {
-    console.log('onSubmit')
+  const onSubmit = (data: any) => {
+    console.log('========data', data)
   }
 
   const showDialog = () => {
