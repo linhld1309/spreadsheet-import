@@ -1,35 +1,33 @@
 import React, { useState } from "react"
 import { ReactSpreadsheetImport } from "@/src/lib"
+import { productsFields } from "@/src/utils/dataFormat"
+import useSaveData from "@/src/hooks/useSaveData"
+import _ from "lodash";
+import toast, { Toaster } from "react-hot-toast"
+
+const COLLECTION_NAME = "products";
 
 export const TableData = () => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => { setIsOpen(false)}
-  const onSubmit = (data: any) => {
-    console.log('========data', data)
+  const { saveData, loading, error, success } = useSaveData(COLLECTION_NAME);
+
+  const onSubmit = async (data: any) => {
+    try {
+      await _.forEach(data.all, function(value) {
+        saveData(_.omitBy(value, _.isNil));
+        console.log("success===========>", success);
+      });
+      toast('Upload done.')
+    } catch (error) {
+      console.log("error===========>", error)
+      toast('Upload error.')
+    }
   }
 
   const showDialog = () => {
     setIsOpen(true);
   }
-
-  const fields = [
-    {
-      label: "Name",
-      key: "name",
-      alternateMatches: ["first name", "first"],
-      fieldType: {
-        type: "input",
-      },
-      example: "Stephanie",
-      validations: [
-        {
-          rule: "required",
-          errorMessage: "Name is required",
-          level: "error",
-        },
-      ],
-    },
-  ] as const
 
   return (
     <div className='m-4'>
@@ -51,7 +49,7 @@ export const TableData = () => {
           <th scope="col" className="py-3 px-6">Amount</th>
         </tr>
         </thead>
-        <tbody className='text-indigo-950 dark:text-slate-400'>
+        <tbody className='text-issndigo-950 dark:text-slate-400'>
         <tr className="bg-white dark:bg-slate-900/50 border-b">
           <td className="py-4 px-6">Alex Johnson</td>
           <td className="py-4 px-6">82926417</td>
@@ -79,8 +77,9 @@ export const TableData = () => {
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={onSubmit}
-        fields={fields}
+        fields={productsFields}
       />
+      <Toaster />
     </div>
   )
 }
